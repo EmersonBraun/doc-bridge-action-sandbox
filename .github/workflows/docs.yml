@@ -1,0 +1,22 @@
+name: Documentation advisory
+on: [pull_request]
+permissions:
+  contents: read
+  pull-requests: write
+concurrency:
+  group: doc-bridge-advisory-${{ github.repository }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: AgentsKit-io/doc-bridge@888e288fc974ed22485840e0f977aa110c529b79 # 1.14.0-next.0
+        with:
+          index-source: ci-built
+          advisory: 'true'
+          comment: 'true'
