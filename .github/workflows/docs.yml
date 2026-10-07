@@ -2,7 +2,6 @@ name: Documentation advisory
 on: [pull_request]
 permissions:
   contents: read
-  pull-requests: write
 concurrency:
   group: doc-bridge-advisory-${{ github.repository }}-${{ github.event.pull_request.number }}
   cancel-in-progress: false
